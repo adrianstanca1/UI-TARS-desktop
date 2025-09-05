@@ -95,7 +95,7 @@ const StreamingMarkdownRendererContent: React.FC<StreamingMarkdownRendererProps>
         setStreamingContent(currentContent.substring(splitPoint));
       }
 
-      // After a shorter delay, move streaming content to stable
+      // After a minimal delay, move streaming content to stable
       if (streamingTimeoutRef.current) {
         clearTimeout(streamingTimeoutRef.current);
       }
@@ -103,7 +103,7 @@ const StreamingMarkdownRendererContent: React.FC<StreamingMarkdownRendererProps>
       streamingTimeoutRef.current = setTimeout(() => {
         setStableContent(currentContent);
         setStreamingContent('');
-      }, 300);
+      }, 30);
     }
 
     prevContentRef.current = currentContent;
