@@ -13,6 +13,17 @@
 export type AgentWebUIImplementationType = 'static' | 'remote';
 
 /**
+ * Navigation item icon type
+ */
+export type WorkspaceNavItemIcon =
+  | 'code'
+  | 'monitor'
+  | 'terminal'
+  | 'browser'
+  | 'desktop'
+  | 'default';
+
+/**
  * Navigation item configuration for workspace
  */
 export interface WorkspaceNavItem {
@@ -24,6 +35,11 @@ export interface WorkspaceNavItem {
    * Link URL to open in new tab
    */
   link: string;
+  /**
+   * Icon type for the navigation item
+   * @defaultValue 'default'
+   */
+  icon?: WorkspaceNavItemIcon;
 }
 
 /**
@@ -168,7 +184,7 @@ export interface BaseAgentWebUIImplementation {
 export interface StaticAgentWebUIImplementation extends BaseAgentWebUIImplementation {
   type?: 'static';
   /**
-   * Web UI Static Path, example implementation: `@tarko/web-ui`.
+   * Web UI Static Path, example implementation: `@tarko/agent-ui`.
    */
   staticPath: string;
 }
@@ -192,10 +208,10 @@ export type AgentWebUIImplementation =
  */
 export type AgentWebUIImplementationByType<T extends AgentWebUIImplementationType> =
   T extends 'static'
-  ? StaticAgentWebUIImplementation
-  : T extends 'remote'
-  ? RemoteAgentWebUIImplementation
-  : never;
+    ? StaticAgentWebUIImplementation
+    : T extends 'remote'
+      ? RemoteAgentWebUIImplementation
+      : never;
 
 /**
  * Type guard to check if implementation is of specific type
